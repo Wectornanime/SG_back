@@ -47,9 +47,11 @@ INSERT INTO `Medicamentos` (farmaco, detentor, medicamento, concentracao, status
 ('aciclovir', 'Teuto', 'ACICLOVIR', '250mg', 'ativo'),
 ('aciclovir', 'Glaxosmithkline', 'ZOVIRAX', '50 mg/g', 'ativo');
 
-SELECT id, farmaco, detentor, medicamento, concentracao, status FROM `Medicamentos` WHERE medicamento LIKE '%ZIAGENAVIR%'
+SELECT id, farmaco, detentor, medicamento, concentracao, status FROM `Medicamentos` WHERE medicamento LIKE '%ZIAGENAVIR%';
 
+SELECT DISTINCT farmaco FROM `Medicamentos` WHERE medicamento LIKE '%RZEN%';
 
+SELECT * FROM `Medicamentos` WHERE farmaco LIKE '%abacavir%';
 
 
 

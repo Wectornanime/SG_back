@@ -9,6 +9,8 @@ app = Flask(__name__)
 
 @app.route('/getGeneric/<med>', methods=['GET'])
 def get_generic(med):
-    return jsonify(main.findMedicamento(med))
+    farm = main.get_farmaco(med)
+    meds = main.findMedicamento(farm)
+    return jsonify(meds)
 
 app.run(host=os.getenv('app_host'), port=os.getenv('app_port'), debug=True)
