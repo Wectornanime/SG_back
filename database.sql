@@ -47,11 +47,51 @@ INSERT INTO `Medicamentos` (farmaco, detentor, medicamento, concentracao, status
 ('aciclovir', 'Teuto', 'ACICLOVIR', '250mg', 'ativo'),
 ('aciclovir', 'Glaxosmithkline', 'ZOVIRAX', '50 mg/g', 'ativo');
 
-SELECT id, farmaco, detentor, medicamento, concentracao, status FROM `Medicamentos` WHERE medicamento LIKE '%ZIAGENAVIR%';
+INSERT INTO `Medicamentos` (farmaco, detentor, medicamento, concentracao, status) VALUES
+('acetilcisteína', 'Zambon', 'FLUIMUCIL', '100mg', 'inativo'),
+('acetilcisteína', 'Zambon', 'FLUIMUCIL', '200mg', 'inativo'),
+('aciclovir', 'Glaxosmithkline', 'ZOVIRAX', '0,03 g/g', 'inativo'),
+('aciclovir', 'Glaxosmithkline', 'ZOVIRAX', '250mg/10mL', 'inativo'),
+('ácido acetilsalicílico', 'Bayer', 'ASPIRINA BUFFERED',  '500mg', 'inativo'),
+('ácido acetilsalicílico', 'Novartis Biociências', 'BUFFERIN CARDIO', '81mg', 'inativo'),
+('ácido acetilsalicílico', 'Cimed', 'ÁCIDO ACETILSALICÍLICO', '100mg', 'inativo'),
+('ácido acetilsalicílico', 'Medquímica', 'AS-MED', '100mg', 'inativo'),
+('adenosina', 'Libbs', 'ADENOCARD', '3,0 mg/mL', 'inativo'),
+('alendronato sódico', 'Merck Sharp & Dohme', 'FOSAMAX', '70 mg', 'inativo'),
+('albendazol', 'Glaxosmithkline', 'ZENTEL', '200 mg', 'inativo'),
+('albendazol', 'Glaxosmithkline', 'ZENTEL', '40 mg/mL', 'inativo'),
+('albendazol', 'Glaxosmithkline', 'ZENTEL', '400 mg', 'inativo'),
+('alisquireno (hemifumarato)', 'Novartis Biociências', 'RASILEZ', '150', 'inativo'),
+('alisquireno (hemifumarato)', 'Novartis Biociências', 'RASILEZ', '300mg', 'inativo'),
+('alprostadil', 'EMS', 'ALPRODIL', '20μg', 'inativo'),
+('amifostina', 'Schering Plough', 'ETHYOL', '500mg', 'inativo'),
+('aminofilina', 'Ariston', 'MINOTON', '24mg/mL', 'inativo'),
+('amiodarona (cloridrato)', 'Sanofi-Aventis', 'ATLANSIL', '50mg/ml', 'inativo'),
+('amitriptilina (cloridrato)', 'Merck Sharp & Dohme', 'TRYPTANOL', '25mg', 'inativo'),
+('amitriptilina (cloridrato)', 'Merck Sharp & Dohme', 'TRYPTANOL', '75mg', 'inativo')
 
-SELECT DISTINCT farmaco FROM `Medicamentos` WHERE medicamento LIKE '%RZEN%';
 
-SELECT * FROM `Medicamentos` WHERE farmaco LIKE '%abacavir%';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
