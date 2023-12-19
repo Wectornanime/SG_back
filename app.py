@@ -13,4 +13,8 @@ def get_generic(med):
     meds = main.findMedicamento(farm)
     return jsonify(meds)
 
+@app.route('/getMedicineNames/<name>', methods=['GET'])
+def medicine_names(name):
+    return jsonify(main.get_meds(name))
+
 app.run(host=os.getenv('app_host'), port=os.getenv('app_port'), debug=True)

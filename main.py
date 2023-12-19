@@ -41,3 +41,16 @@ def get_farmaco(med):
     result=mycursor.fetchone()[0]
     db.close()
     return result
+
+def get_meds(name):
+    result=list()
+    db = conn()
+    mycursor = db.cursor()
+    cmd = f"SELECT DISTINCT medicamento FROM `Medicamentos` WHERE medicamento LIKE '%{name}%'"
+    mycursor.execute(cmd)
+
+    for res in mycursor.fetchall():
+        result.append(res[0])
+
+    db.close()
+    return result
