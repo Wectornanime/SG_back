@@ -1,0 +1,11 @@
+//
+ >> recebe uma requisicao de um medicamento ou farmaco,
+
+1.0 - verifica se esta presente na coluna de medicamento
+    1.1 - verifica no nome do farmaco
+ - se nao:
+    1.1 - verifica se esta na coluna de farmaco
+      
+r -> devolve a lista de medicamentos corrlacionados ao farmaco
+
+//
