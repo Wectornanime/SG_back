@@ -1,4 +1,4 @@
--- Active: 1686500747749@@127.0.0.1@3306@remedys
+-- Active: 1703105093497@@127.0.0.1@3306
 
 
 CREATE DATABASE IF NOT EXISTS remedys;
@@ -11,7 +11,7 @@ CREATE TABLE Medicamentos (
     detentor VARCHAR(45),
     medicamento VARCHAR(45),
     concentracao VARCHAR(20),
-    status ENUM('ativo', 'inativo')
+    status VARCHAR(20)
 );
 
 INSERT INTO `Medicamentos` (farmaco, detentor, medicamento, concentracao, status) VALUES
@@ -45,7 +45,17 @@ INSERT INTO `Medicamentos` (farmaco, detentor, medicamento, concentracao, status
 ('aciclovir', 'Merck', 'ACICLOVIR', '400 mg', 'ativo'),
 ('aciclovir', 'Glaxosmithkline', 'ZOVIRAX', '200 mg', 'ativo'),
 ('aciclovir', 'Teuto', 'ACICLOVIR', '250mg', 'ativo'),
-('aciclovir', 'Glaxosmithkline', 'ZOVIRAX', '50 mg/g', 'ativo');
+('aciclovir', 'Glaxosmithkline', 'ZOVIRAX', '50 mg/g', 'ativo'),
+('ácido acetilsalicílico', 'EMS S/A', 'ÁCIDO ACETIL SALICÍLICO', '100 mg', 'ativo'),
+('ácido acetilsalicílico', 'Bayer', 'ASPIRINA', '500mg', 'ativo'),
+('ácido acetilsalicílico', 'Bayer', 'ASPIRINA', '500mg', 'ativo'),
+('ácido acetilsalicílico', 'Bayer', 'ASPIRINA PREVENT', '100mg', 'ativo'),
+('ácido acetilsalicílico', 'Bayer', 'ASPIRINA PREVENT', '300mg', 'ativo'),
+('adenosina', 'Hipolabor', 'ADENOSINA', '3mg/mL', 'ativo');
+
+
+
+
 
 INSERT INTO `Medicamentos` (farmaco, detentor, medicamento, concentracao, status) VALUES
 ('acetilcisteína', 'Zambon', 'FLUIMUCIL', '100mg', 'inativo'),
@@ -68,7 +78,7 @@ INSERT INTO `Medicamentos` (farmaco, detentor, medicamento, concentracao, status
 ('aminofilina', 'Ariston', 'MINOTON', '24mg/mL', 'inativo'),
 ('amiodarona (cloridrato)', 'Sanofi-Aventis', 'ATLANSIL', '50mg/ml', 'inativo'),
 ('amitriptilina (cloridrato)', 'Merck Sharp & Dohme', 'TRYPTANOL', '25mg', 'inativo'),
-('amitriptilina (cloridrato)', 'Merck Sharp & Dohme', 'TRYPTANOL', '75mg', 'inativo')
+('amitriptilina (cloridrato)', 'Merck Sharp & Dohme', 'TRYPTANOL', '75mg', 'inativo');
 
 
 
