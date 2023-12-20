@@ -1,16 +1,11 @@
-import mysql.connector
+import sqlite3
 import dotenv
 import os
 
 dotenv.load_dotenv(dotenv.find_dotenv())
 
 def conn():
-    return mysql.connector.connect (
-        host = os.getenv('db_host'),
-        user = os.getenv('db_user'),
-        password = os.getenv('db_password'),
-        database = os.getenv('db_database')
-    )
+    return sqlite3.connect(os.getenv('db_database'))
 
 
 def findMedicamento(farm):

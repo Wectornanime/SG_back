@@ -1,3 +1,3 @@
 from main import *
 
-print(get_meds('flu'))
+print(findMedicamento('acetilcisteína'))
