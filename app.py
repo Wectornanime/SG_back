@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 import dotenv
 import os
 import main
@@ -6,11 +7,16 @@ import main
 
 dotenv.load_dotenv(dotenv.find_dotenv())
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route('/getGeneric/<med>', methods=['GET'])
 def get_generic(med):
-    farm = main.get_farmaco(med)
-    meds = main.findMedicamento(farm)
+    try:
+        farm = main.get_farmaco(med)
+        meds = main.findMedicamento(farm)
+    except:
+        meds = ''
     return jsonify(meds)
 
 @app.route('/getMedicineNames/<name>', methods=['GET'])

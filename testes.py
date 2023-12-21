@@ -1,3 +1,4 @@
 from main import *
 
-print(findMedicamento('acetilcisteína'))
+print(get_farmaco('ze'))
+print(findMedicamento(get_farmaco('ze')))

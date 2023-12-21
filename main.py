@@ -13,27 +13,30 @@ def findMedicamento(farm):
     ret=list()
     db = conn()
     mycursor = db.cursor()
-    cmd = f"SELECT farmaco, detentor, medicamento, concentracao, status FROM `Medicamentos` WHERE farmaco LIKE '%{farm}%'"
-    mycursor.execute(cmd)
-    result=mycursor.fetchall()
-    for col in result:
-        line['farmaco'] = col[0]
-        line['detentor'] = col[1]
-        line['medicamento'] = col[2]
-        line['concentracao'] = col[3]
-        line['status'] = col[4]
-        ret.append(line.copy())
-        line.clear()
+    for f in farm:
+        cmd = f"SELECT farmaco, detentor, medicamento, concentracao, status FROM `Medicamentos` WHERE farmaco LIKE '%{f}%'"
+        mycursor.execute(cmd)
+        result=mycursor.fetchall()
+        for col in result:
+            line['farmaco'] = col[0]
+            line['detentor'] = col[1]
+            line['medicamento'] = col[2]
+            line['concentracao'] = col[3]
+            line['status'] = col[4]
+            ret.append(line.copy())
+            line.clear()
 
     db.close()
     return ret
 
 def get_farmaco(med):
+    result=list()
     db = conn()
     mycursor = db.cursor()
     cmd = f"SELECT DISTINCT farmaco FROM `Medicamentos` WHERE medicamento LIKE '%{med}%'"
     mycursor.execute(cmd)
-    result=mycursor.fetchone()[0]
+    for res in mycursor.fetchall():
+        result.append(res[0])
     db.close()
     return result
 
