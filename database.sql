@@ -83,6 +83,23 @@ INSERT INTO `Medicamentos` (farmaco, detentor, medicamento, concentracao, status
 
 
 
+INSERT INTO `Medicamentos` (farmaco, detentor, medicamento, concentracao, status) VALUES
+('paracetamol', 'Cosmed', 'PRATIUM', '140mg/ml', 'ativo'),
+('paracetamol', 'PF Consumer', 'SONRIDOR', '500mg', 'ativo'),
+('paracetamol', 'Janssen-Cilag', 'TYLENOL', '160mg', 'ativo'),
+('paracetamol', 'Janssen-Cilag', 'TYLENOL', '500mg', 'ativo'),
+('paracetamol', 'Janssen-Cilag', 'TYLENOL', '750mg', 'ativo'),
+('paracetamol', 'Janssen-Cilag', 'TYLENOL AP', '650mg', 'ativo'),
+('paracetamol', 'Janssen-Cilag', 'TYLENOL BEBÊ', '100mg/mL', 'ativo'),
+('paracetamol', 'Janssen-Cilag', 'TYLENOL CRIANÇA', '32mg/mL', 'ativo'),
+('paracetamol', 'Janssen-Cilag', 'TYLENOL GELCAP', '500mg', 'ativo'),
+('paracetamol', 'Janssen-Cilag', 'TYLENOL GOTAS', '200mg/mL', 'ativo'),
+('paracetamol', 'Procter & Gamble', 'VICK PYRENA', '500mg', 'ativo'),
+('paracetamol', 'Halex Istar', 'HALEXMINOPHEN', '10mg/mL', 'ativo'),
+('paracetamol', 'Frenesius', 'KABIPAMOL', '10mg/ml', 'inativo'),
+('fluoxetina', 'EMS Sigma Pharma', 'DAFORIN', '20mg/mL', 'ativo'),
+('fluoxetina', 'EMS Sigma Pharma', 'DAFORIN', '20mg', 'ativo'),
+('fluoxetina (cloridrato)', 'Eli Lilly', 'PROZAC', '20mg','inativo');
 
 
 
