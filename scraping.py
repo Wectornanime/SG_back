@@ -43,10 +43,27 @@ def addToDB(table, status):
 
     for row in range(0, len(table.df)):
         cmd += f" ('{table.df.at[row, 0]}', '{table.df.at[row, 1]}', '{table.df.at[row, 2]}', '{table.df.at[row, 4]}', '{status}')"
+        if row < len(table.df)-1:
+            cmd += ', '
     
     mycursor.execute(cmd)
     db.close()
 
+
+def exportSQL(temp_table, status):
+    file = open('exported.sql', 'w')
+
+    cmd = f"INSERT INTO `Medicamentos` (farmaco, detentor, medicamento, concentracao, status) VALUES\n"
+
+    for row in range(0, len(temp_table.df)):
+        cmd0 = f" ('{temp_table.df.at[row, 0]}', '{temp_table.df.at[row, 1]}', '{temp_table.df.at[row, 2]}', '{temp_table.df.at[row, 4]}', '{status}')"
+        print(cmd0)
+        cmd += cmd0
+        if row < len(temp_table.df)-1:
+            cmd += ',\n'
+    
+    file.write(str(cmd))
+    file.close()
 
 
 # inicia o FireFox
@@ -93,4 +110,4 @@ for index, link in enumerate(tableList):
             status = 'inativo'
 
         table = filterTable(table)
-        addToDB(table, status)
+        exportSQL(table, status)
