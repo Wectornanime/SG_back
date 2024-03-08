@@ -6,10 +6,12 @@ import camelot
 import sqlite3
 import os
 from time import sleep
+from datetime import datetime
 
 
 anvisa_url = 'https://www.gov.br/anvisa/pt-br/setorregulado/regularizacao/medicamentos/medicamentos-de-referencia/lista-de-medicamentos-de-referencia'
-
+dtn = datetime.now()
+export_file_name = f'{dtn.day}-{dtn.month}-{dtn.year}-{dtn.hour}-{dtn.minute}.sql'
 
 # funcao para filtrar a tabela e fazer tratamento
 def filterTable(temp_table):
@@ -51,22 +53,32 @@ def addToDB(table, status):
 
 
 def exportSQL(temp_table, status):
-    file = open('exported.sql', 'w')
+    try:
+        file = open('exports/'+export_file_name, 'r', encoding='utf-8')
+        cmd = ''.join(file.readlines())
+        file.close()
+    except:
+        cmd = ''
 
-    cmd = f"INSERT INTO `Medicamentos` (farmaco, detentor, medicamento, concentracao, status) VALUES\n"
+    file = open('exports/'+export_file_name, 'w', encoding='utf-8')
+
+    cmd += f"INSERT INTO `Medicamentos` (farmaco, detentor, medicamento, concentracao, status) VALUES\n"
 
     for row in range(0, len(temp_table.df)):
-        cmd0 = f" ('{temp_table.df.at[row, 0]}', '{temp_table.df.at[row, 1]}', '{temp_table.df.at[row, 2]}', '{temp_table.df.at[row, 4]}', '{status}')"
+        cmd0 = f' ("{temp_table.df.at[row, 0]}", "{temp_table.df.at[row, 1]}", "{temp_table.df.at[row, 2]}", "{temp_table.df.at[row, 4]}", "{status}")'
         print(cmd0)
         cmd += cmd0
         if row < len(temp_table.df)-1:
             cmd += ',\n'
+        else:
+            cmd += ';\n\n'
     
     file.write(str(cmd))
     file.close()
 
 
 # inicia o FireFox
+print('Iniciando o FireFox')
 opc = Options()
 opc.headless = True
 driver = webdriver.Firefox(options=opc)
@@ -79,10 +91,12 @@ element = driver.find_element(By.XPATH, xpath)
 html_content = element.get_attribute('outerHTML')
 
 # pega apenas a tag 'a'
+print('Buscando o elemento HTML que contem os links')
 soup = BeautifulSoup(html_content, 'html.parser')
 elementList = soup.find_all(name='a')
 
 # separa os links da tag
+print('extraindo os links da tabela A')
 tableList = list()
 for el in elementList:
     if 'https' in el.get('href') and 'lista-a' in el.get('href'): # filtra apenas a tabela A
@@ -90,8 +104,10 @@ for el in elementList:
 
 # encerra o FireFox
 driver.quit()
+print('FireFox encerrado')
 
 for index, link in enumerate(tableList):
+    print('Lendo a tabela')
     tables = camelot.read_pdf(link, flavor='stream', pages='all', flag='text')
 
     for pg in range(0, len(tables)):
@@ -111,3 +127,11 @@ for index, link in enumerate(tableList):
 
         table = filterTable(table)
         exportSQL(table, status)
+    
+    if index == len(tableList)-1:
+        print('Encerrando programa')
+        sleep(0.25)
+        print('Programa encerrado')
+    else:
+        print('Indo para a proxima tabela')
+        sleep(0.25)
