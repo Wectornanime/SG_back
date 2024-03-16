@@ -23,4 +23,4 @@ def get_generic(med):
 def medicine_names(name):
     return jsonify(main.get_meds(name))
 
-app.run(host=os.getenv('app_host'), port=os.getenv('app_port'), debug=True)
+# app.run(host=os.getenv('app_host'), port=os.getenv('app_port'), debug=True)
