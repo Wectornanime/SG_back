@@ -65,7 +65,7 @@ def exportSQL(temp_table, status):
     cmd += f"INSERT INTO `Medicamentos` (farmaco, detentor, medicamento, concentracao, status) VALUES\n"
 
     for row in range(0, len(temp_table.df)):
-        cmd0 = f' ("{temp_table.df.at[row, 0]}", "{temp_table.df.at[row, 1]}", "{temp_table.df.at[row, 2]}", "{temp_table.df.at[row, 4]}", "{status}")'
+        cmd0 = f" ('{temp_table.df.at[row, 0]}', '{temp_table.df.at[row, 1]}', '{temp_table.df.at[row, 2]}', '{temp_table.df.at[row, 4]}', '{status}')"
         print(cmd0)
         cmd += cmd0
         if row < len(temp_table.df)-1:
