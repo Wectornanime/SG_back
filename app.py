@@ -7,8 +7,7 @@ import main
 
 dotenv.load_dotenv(dotenv.find_dotenv())
 app = Flask(__name__)
-cors = CORS(app)
-app.config['CORS_HEADERS'] = 'Content-Type'
+CORS(app)
 
 @app.route('/getGeneric/<med>', methods=['GET'])
 def get_generic(med):

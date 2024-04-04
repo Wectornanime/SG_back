@@ -33,7 +33,7 @@ def get_farmaco(med):
     result=list()
     db = conn()
     mycursor = db.cursor()
-    cmd = f"SELECT DISTINCT farmaco FROM `Medicamentos` WHERE medicamento LIKE '%{med}%'"
+    cmd = f"SELECT DISTINCT farmaco FROM `Medicamentos` WHERE medicamento LIKE '%{med}%' OR farmaco LIKE '%{med}%'"
     mycursor.execute(cmd)
     for res in mycursor.fetchall():
         result.append(res[0])
