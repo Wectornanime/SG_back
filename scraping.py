@@ -10,6 +10,9 @@ from datetime import datetime
 
 
 anvisa_url = 'https://www.gov.br/anvisa/pt-br/setorregulado/regularizacao/medicamentos/medicamentos-de-referencia/lista-de-medicamentos-de-referencia'
+
+bula_url = 'https://consultas.anvisa.gov.br/#/bulario/'
+
 dtn = datetime.now()
 export_file_name = f'{dtn.day}-{dtn.month}-{dtn.year}-{dtn.hour}-{dtn.minute}.sql'
 
@@ -62,10 +65,13 @@ def exportSQL(temp_table, status):
 
     file = open('exports/'+export_file_name, 'w', encoding='utf-8')
 
-    cmd += f"INSERT INTO `Medicamentos` (farmaco, detentor, medicamento, concentracao, status) VALUES\n"
+    cmd += f"INSERT INTO `Medicamentos` (farmaco, detentor, medicamento, concentracao, bula, status) VALUES\n"
 
+    driver = initDriverBull()
     for row in range(0, len(temp_table.df)):
-        cmd0 = f" ('{temp_table.df.at[row, 0]}', '{temp_table.df.at[row, 1]}', '{temp_table.df.at[row, 2]}', '{temp_table.df.at[row, 4]}', '{status}')"
+
+        bula = getBula(driver, temp_table.df.at[row, 3])
+        cmd0 = f" ('{temp_table.df.at[row, 0]}', '{temp_table.df.at[row, 1]}', '{temp_table.df.at[row, 2]}', '{temp_table.df.at[row, 4]}', '{bula}', '{status}')"
         print(cmd0)
         cmd += cmd0
         if row < len(temp_table.df)-1:
@@ -73,8 +79,41 @@ def exportSQL(temp_table, status):
         else:
             cmd += ';\n\n'
     
+    driver.quit()
     file.write(str(cmd))
     file.close()
+
+
+def initDriverBull():
+    driver = webdriver.Firefox()
+    driver.get(bula_url)
+    sleep(1)
+    return driver
+
+
+def getBula(driver, cod_med):
+    driver.find_element(By.ID, 'txtNumeroRegistro').send_keys(cod_med)
+    sleep(0.25)
+    driver.find_element(By.CLASS_NAME, 'btn-primary').click()
+    sleep(1)
+    try:
+        xpath = "//td[@class='text-center col-sm-1']//a[@class='ng-scope']"
+        element = driver.find_element(By.XPATH, xpath)
+        link_bula = element.get_attribute('href')
+    except:
+        link_bula = ''
+        try:
+            xpath = "//a[@class='btn btn-default ng-scope']"
+            driver.find_element(By.XPATH, xpath).click()
+        except:
+            pass
+    else:
+        xpath = "//a[@class='btn btn-default ng-scope']"
+        driver.find_element(By.XPATH, xpath).click()
+    
+    sleep(0.5)
+    driver.find_element(By.ID, 'txtNumeroRegistro').clear()
+    return link_bula
 
 
 # inicia o FireFox
