@@ -14,7 +14,7 @@ def findMedicamento(farm):
     db = conn()
     mycursor = db.cursor()
     for f in farm:
-        cmd = f"SELECT farmaco, detentor, medicamento, concentracao, status FROM `Medicamentos` WHERE farmaco LIKE '%{f}%'"
+        cmd = f"SELECT farmaco, detentor, medicamento, concentracao, bula, status FROM `Medicamentos` WHERE farmaco LIKE '%{f}%'"
         mycursor.execute(cmd)
         result=mycursor.fetchall()
         for col in result:
@@ -22,7 +22,8 @@ def findMedicamento(farm):
             line['detentor'] = col[1]
             line['medicamento'] = col[2]
             line['concentracao'] = col[3]
-            line['status'] = col[4]
+            line['bula_link'] = col[4]
+            line['status'] = col[5]
             ret.append(line.copy())
             line.clear()
 

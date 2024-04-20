@@ -1,0 +1,8 @@
+quando demora para responder aparece esse elemento na tela:
+ - (class) 'dw-loading dw-loading-overlay dw-loading-active'
+
+quando dar um erro esse elemento aparece na tela:
+ - (class) 'toast ng-scope toast-error'
+
+quando nao encontra o registro na base de dados aparece esse elemento na tela:
+ - (class) 'toast ng-scope toast-warning'
