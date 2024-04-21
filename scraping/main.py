@@ -8,6 +8,8 @@ import os
 from time import sleep
 from datetime import datetime
 
+# esta sendo filtrado apenas a tablea a
+
 
 anvisa_url = 'https://www.gov.br/anvisa/pt-br/setorregulado/regularizacao/medicamentos/medicamentos-de-referencia/lista-de-medicamentos-de-referencia'
 
@@ -67,7 +69,7 @@ def exportSQL(temp_table, status):
 
     cmd += f"INSERT INTO `Medicamentos` (farmaco, detentor, medicamento, concentracao, bula, status) VALUES\n"
 
-    driver = initDriverBull()
+    driver = initDriverBula()
     for row in range(0, len(temp_table.df)):
 
         bula = getBula(driver, temp_table.df.at[row, 3])
@@ -84,7 +86,7 @@ def exportSQL(temp_table, status):
     file.close()
 
 
-def initDriverBull():
+def initDriverBula():
     driver = webdriver.Firefox()
     driver.get(bula_url)
     sleep(1)
@@ -94,7 +96,27 @@ def initDriverBull():
 def getBula(driver, cod_med):
     driver.find_element(By.ID, 'txtNumeroRegistro').send_keys(cod_med)
     sleep(0.25)
-    driver.find_element(By.CLASS_NAME, 'btn-primary').click()
+    for tt in range(0, 2):
+        driver.find_element(By.CLASS_NAME, 'btn-primary').click()
+
+        # verificar se carregou para a proxima pagina
+        while True:
+            try:
+                xpath = "//div[@class='dw-loading dw-loading-overlay dw-loading-active']"
+                element = driver.find_element(By.XPATH, xpath)
+            except:
+                break
+        
+        try:
+            xpath = "//div[@class='toast ng-scope toast-error']"
+            element = driver.find_element(By.XPATH, xpath)
+        except:
+            break
+        else:
+            xpathBack = "//a[@class='btn btn-default ng-scope']"
+            driver.find_element(By.XPATH, xpathBack).click()
+            sleep(0.25)
+
     sleep(1)
     try:
         xpath = "//td[@class='text-center col-sm-1']//a[@class='ng-scope']"
@@ -145,11 +167,13 @@ for el in elementList:
 driver.quit()
 print('FireFox encerrado')
 
+
+# organiza os dados das tabelas do link
 for index, link in enumerate(tableList):
-    print('Lendo a tabela')
+    print(f'Lendo a tabela {index}')
     tables = camelot.read_pdf(link, flavor='stream', pages='all', flag='text')
 
-    for pg in range(0, len(tables)):
+    for pg in range(0, 5): #limitando a 10 pags 0 - 9
         table = tables[pg]
 
         # verifica a primeira pag do pdf para tratar as primeiras linhas
